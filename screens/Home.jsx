@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { Platform, SafeAreaView, StyleSheet, View } from "react-native";
+import Categories from "../components/Categories";
 import HeaderTabs from "../components/HeaderTabs";
 import SearchBar from "../components/SearchBar";
 
@@ -11,6 +12,7 @@ export default function Home() {
         <HeaderTabs />
         <SearchBar />
       </View>
+      <Categories />
     </SafeAreaView>
   );
 }
