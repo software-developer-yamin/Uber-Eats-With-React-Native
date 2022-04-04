@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function HeaderTabs({ activeTab, setActiveTab }) {

@@ -1,5 +1,4 @@
 import { AntDesign, Ionicons } from "@expo/vector-icons";
-import { setStatusBarNetworkActivityIndicatorVisible } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -8,14 +7,18 @@ import {
   View,
 } from "react-native";
 
-const SearchBar = ({setCity}) => {
+const SearchBar = ({ setCity }) => {
   return (
     <View style={{ marginTop: 15, flexDirection: "row", alignItems: "center" }}>
-      <View style={styles.textInputContainer} >
+      <View style={styles.textInputContainer}>
         <View style={{ marginLeft: 10 }}>
           <Ionicons name="location-sharp" size={24} color="black" />
         </View>
-        <TextInput onChangeText={(text) => setCity(text)} placeholder="Search" style={styles.textInput} />
+        <TextInput
+          onChangeText={(text) => setCity(text)}
+          placeholder="Search"
+          style={styles.textInput}
+        />
         <TouchableOpacity
           style={{
             flexDirection: "row",

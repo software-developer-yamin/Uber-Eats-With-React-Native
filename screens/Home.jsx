@@ -1,6 +1,6 @@
+import { Divider } from "@rneui/themed";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { Divider } from "@rneui/themed";
 import {
   Platform,
   SafeAreaView,
@@ -8,11 +8,13 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import Categories from "../components/Categories";
-import HeaderTabs from "../components/HeaderTabs";
-import RestaurantItems from "../components/RestaurantItems";
-import SearchBar from "../components/SearchBar";
-import BottomTabs from "../components/BottomTabs";
+import {
+  BottomTabs,
+  Categories,
+  HeaderTabs,
+  RestaurantItems,
+  SearchBar,
+} from "../components/home";
 
 const YELP_API_KEY =
   "tjIRIA9rJt_ne1j661jKcAvFY7Jxvd6qmefmGUb1lnTbsFhi8TC22IwQYTCopVfITPWR4OMxua9ryZR3afjvl44CPRGPtJzlAisOvKgA2vOT_Pamwn3uQ6ZtCrpJYnYx";
@@ -30,7 +32,7 @@ export default function Home() {
     const data = await response.json();
     return setRestaurantData(
       data?.businesses?.filter((business) =>
-        business.transactions.includes(activeTab.toLowerCase())
+        business?.transactions?.includes(activeTab.toLowerCase())
       )
     );
   };
@@ -53,7 +55,7 @@ export default function Home() {
         <RestaurantItems restaurantData={restaurantData} />
       </ScrollView>
       <Divider width={1} />
-      <BottomTabs/>
+      <BottomTabs />
     </SafeAreaView>
   );
 }
