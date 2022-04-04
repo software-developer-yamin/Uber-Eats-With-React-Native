@@ -4,13 +4,13 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 const RestaurantItems = ({ restaurantData }) => {
   return (
     <TouchableOpacity activeOpacity={1} style={{ marginBottom: 30 }}>
-      {restaurantData.map((restaurant, index) => (
+      {restaurantData?.map((restaurant, index) => (
         <View
           key={index}
           style={{ marginTop: 10, padding: 15, backgroundColor: "white" }}
         >
-          <RestaurantImage imageUrl={restaurant.image_url} />
-          <RestaurantInfo name={restaurant.name} rating={restaurant.rating} />
+          <RestaurantImage imageUrl={restaurant?.image_url} />
+          <RestaurantInfo name={restaurant?.name} rating={restaurant?.rating} />
         </View>
       ))}
     </TouchableOpacity>
@@ -21,7 +21,9 @@ const RestaurantImage = ({ imageUrl }) => (
   <>
     <Image
       source={{
-        uri: imageUrl,
+        uri:
+          imageUrl ||
+          "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGZvb2R8ZW58MHx8MHx8&w=1000&q=80",
       }}
       style={{ width: "100%", height: 180 }}
     />
