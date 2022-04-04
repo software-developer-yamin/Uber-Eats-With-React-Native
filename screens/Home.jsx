@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
+import { Divider } from "@rneui/themed";
 import {
   Platform,
   SafeAreaView,
@@ -11,6 +12,7 @@ import Categories from "../components/Categories";
 import HeaderTabs from "../components/HeaderTabs";
 import RestaurantItems from "../components/RestaurantItems";
 import SearchBar from "../components/SearchBar";
+import BottomTabs from "../components/BottomTabs";
 
 const YELP_API_KEY =
   "tjIRIA9rJt_ne1j661jKcAvFY7Jxvd6qmefmGUb1lnTbsFhi8TC22IwQYTCopVfITPWR4OMxua9ryZR3afjvl44CPRGPtJzlAisOvKgA2vOT_Pamwn3uQ6ZtCrpJYnYx";
@@ -18,6 +20,7 @@ const YELP_API_KEY =
 export default function Home() {
   const [restaurantData, setRestaurantData] = useState([]);
   const [city, setCity] = useState("SanDiego");
+  const [activeTab, setActiveTab] = useState("Delivery");
 
   const getRestaurantsFromYelp = async () => {
     const yelpUrl = `https://api.yelp.com/v3/businesses/search?term=restaurants&location=${city}`;
@@ -25,12 +28,16 @@ export default function Home() {
       headers: { Authorization: `Bearer ${YELP_API_KEY}` },
     });
     const data = await response.json();
-    return setRestaurantData(data.businesses);
+    return setRestaurantData(
+      data?.businesses?.filter((business) =>
+        business.transactions.includes(activeTab.toLowerCase())
+      )
+    );
   };
 
   useEffect(() => {
     getRestaurantsFromYelp();
-  }, [city]);
+  }, [city, activeTab]);
 
   console.log(city);
 
@@ -38,13 +45,15 @@ export default function Home() {
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <View style={{ backgroundColor: "white", padding: 15 }}>
-        <HeaderTabs />
+        <HeaderTabs activeTab={activeTab} setActiveTab={setActiveTab} />
         <SearchBar setCity={setCity} />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Categories />
         <RestaurantItems restaurantData={restaurantData} />
       </ScrollView>
+      <Divider width={1} />
+      <BottomTabs/>
     </SafeAreaView>
   );
 }
