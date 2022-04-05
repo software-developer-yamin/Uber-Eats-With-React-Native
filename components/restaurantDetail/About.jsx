@@ -1,8 +1,8 @@
 import { Image, Text, View } from "react-native";
 
-export default function About(props) {
+export default function About({route}) {
   const { name, image, price, reviews, rating, categories } =
-    props?.route?.params;
+    route.params;
 
   const formattedCategories = categories.map((cat) => cat.title).join(" • ");
 
